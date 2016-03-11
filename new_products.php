@@ -1,3 +1,11 @@
+/***************************************************
+/***************************************************
+/ This script will query the joomla database, save 
+/ the results of the query to a folder on the server
+/ then email the file to a designated email address
+/***************************************************
+/**************************************************/
+
 <?php
 
 //display errors
@@ -11,7 +19,6 @@ define('JPATH_COMPONENT',dirname(__FILE__).'/');
 define('DS', DIRECTORY_SEPARATOR); 
 
 //echo JPATH_BASE;
-
 require_once (JPATH_BASE .DS. 'includes' .DS. 'defines.php'); 
 require_once (JPATH_BASE .DS. 'includes' .DS. 'framework.php');
 
