@@ -19,21 +19,27 @@ define('JPATH_COMPONENT',dirname(__FILE__).'/');
 define('DS', DIRECTORY_SEPARATOR); 
 
 //echo JPATH_BASE;
+
 require_once (JPATH_BASE .DS. 'includes' .DS. 'defines.php'); 
 require_once (JPATH_BASE .DS. 'includes' .DS. 'framework.php');
 
 // Start database stuff
 $db = JFactory::getDbo();
 
+// Create a new query object.
+$query = $db->getQuery(true); //-> you are missing this
+
 //Select records that were created today
-$query = "SELECT product_sku FROM #__virtuemart_products WHERE created_on <= NOW();";
+$query->select($db->quoteName(array('product_sku')))
+    ->from($db->quoteName('#__virtuemart_products'))
+    ->where('created_on <= NOW()');
+    //->order('ordering ASC');
 
 $db->setQuery($query);
 
 $result = $db->loadObjectList();
 $result = $db->execute();
 $my_count = $db->getNumRows($result); 
-//echo($my_count);
 
 //Check if any records are returned, if none then end
 if ($my_count == 0){
